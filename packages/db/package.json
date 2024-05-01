@@ -1,0 +1,10 @@
+{
+  "name": "@repo/db",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "src/lib/index.js",
+  "files": [
+    "./src/lib/index.js"
+  ]
+}
