@@ -57,4 +57,7 @@ apps/web> cd ../..
 ```bash
 > turbo build
 > git add .
+> git commit -m "init"
 ```
+
+- use vscode to push it to github.
