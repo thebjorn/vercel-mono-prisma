@@ -222,4 +222,22 @@ There seems to be multiple issues with running prisma in a monorepo, most of whi
 ```bash
 > cd packages/db
 packages/db> npx prisma init
+packages/db> cp ../../.env .
+packages/db> npx prisma db pull
 ```
+
+- update prisma.schema, adding a `User` model
+- update src/lib/index.js to use the prisma client and +page.server.js to use the new `get_users` function.
+- clean up +page.svelte to display the users.
+
+```bash
+packages/db> npx prisma push
+packages/db> npx prisma generate
+packages/db> turbo dev --filter web
+```
+
+- use pgAdmin to verify that the `User` table has been created.
+- manually add some rows to the `User` table.
+- reload the browser page, and verify that the users are displayed.
+
+
