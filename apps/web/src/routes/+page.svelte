@@ -17,15 +17,8 @@
     <p>{error.message}</p>
 {/await}
 
-<ul>
-    {#each data.dummy as dumdum}
-        <li>{dumdum}</li>
-    {/each}
-</ul>
-
-
 <div>
-    {#each data.cart as { name, user_id } (name)}
-      <div>{user_id} - {name}</div>
+    {#each data.cart.rows as {name, user_id} (name) }
+        <div>{user_id} - {name}</div>
     {/each}
 </div>

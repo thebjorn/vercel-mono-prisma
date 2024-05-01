@@ -1,3 +1,21 @@
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [setup](#setup)
+  - [head over to vercel and import the repo](#head-over-to-vercel-and-import-the-repo)
+    - [configure](#configure)
+    - [verify that everything runs ok](#verify-that-everything-runs-ok)
+- [Database](#database)
+  - [Create a Postgres database](#create-a-postgres-database)
+- [Error 1](#error-1)
+  - [Solution 1](#solution-1)
+
+<!-- /code_chunk_output -->
+
+
+
 # setup
 
 ```bash
@@ -117,3 +135,45 @@ Manually setting POSTGRES_URL in the environment (even uri-encoded) does not con
 ```
 web:dev: Error: Database connection string provided to `neon()` is not a valid URL. Connection string: "postgres://defaul...
 ```
+
+## Solution 1
+The following changes are needed to get this running locally:
+
+```bash
+diff --git a/apps/web/src/routes/+page.svelte b/apps/web/src/routes/+page.svelte
+index 162f558..98e05d4 100644
+--- a/apps/web/src/routes/+page.svelte
++++ b/apps/web/src/routes/+page.svelte
+@@ -17,15 +17,8 @@
+-    {#each data.cart as { name, user_id } (name)}
++    {#each data.cart.rows as {name, user_id} (name) }
+
+
+diff --git a/apps/web/vite.config.js b/apps/web/vite.config.js
+index e434d9f..6ef541e 100644
+--- a/apps/web/vite.config.js
++++ b/apps/web/vite.config.js
+@@ -1,9 +1,14 @@
+ import { sveltekit } from '@sveltejs/kit/vite';
+-import { defineConfig } from 'vite';
++import { defineConfig, loadEnv } from 'vite';
+
+
+-export default defineConfig({
+-    plugins: [
+-        sveltekit()
+-    ]
+-});
+
++export default defineConfig(({mode}) =>        {
++     if (mode === 'development') {
++         const env = loadEnv(mode, './../../.env', '');
++     }
++     return {
++         plugins: [
++             sveltekit()
++         ]
++     }
++})
+```
+
