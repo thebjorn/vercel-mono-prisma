@@ -112,7 +112,7 @@ web:dev:   code: 'missing_connection_string'
 web:dev: }
 ```
 
-It seems to work when pushing to vercel.
+Building and deploying runs without errors when pushing to vercel, but no data is displayed from the database.
 Manually setting POSTGRES_URL in the environment (even uri-encoded) does not connect.
 ```
 web:dev: Error: Database connection string provided to `neon()` is not a valid URL. Connection string: "postgres://defaul...

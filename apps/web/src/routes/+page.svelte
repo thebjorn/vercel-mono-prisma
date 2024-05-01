@@ -17,6 +17,11 @@
     <p>{error.message}</p>
 {/await}
 
+<ul>
+    {#each data.dummy as dumdum}
+        <li>{dumdum}</li>
+    {/each}
+</ul>
 
 
 <div>
