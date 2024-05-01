@@ -20,7 +20,7 @@
 
 
 <div>
-    {#each data.cart as { id, quantity } (id)}
-      <div>{id} - {quantity}</div>
+    {#each data.cart as { name, user_id } (name)}
+      <div>{user_id} - {name}</div>
     {/each}
 </div>
