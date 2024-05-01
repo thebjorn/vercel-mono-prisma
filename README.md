@@ -11,6 +11,9 @@
   - [Create a Postgres database](#create-a-postgres-database)
 - [Error 1](#error-1)
   - [Solution 1](#solution-1)
+- [Prisma](#prisma)
+  - [Where to install prisma..?](#where-to-install-prisma)
+  - [Where should the prisma.schema file live?](#where-should-the-prismaschema-file-live)
 
 <!-- /code_chunk_output -->
 
@@ -177,3 +180,46 @@ index e434d9f..6ef541e 100644
 +})
 ```
 
+# Prisma
+
+docs
+:  https://vercel.com/docs/storage/vercel-postgres/using-an-orm#prisma
+
+## Where to install prisma..?
+Obviously I want the database code to live in the `packages/db` package
+
+Copilot completion to the previous sentence... hmmm: , but prisma needs to be installed in the `apps/web` package.
+
+**Note:** the command in the docs is wrong (according to: https://turbo.build/repo/docs/handbook/tools/prisma). It should be:
+
+```bash
+> pnpm add @prisma/client --filter @repo/db
+> pnpm add -D prisma --filter @repo/db
+```
+
+## Where should the prisma.schema file live?
+Vercel docs doesn't say...
+.. heading over to the Prisma docs... (https://www.prisma.io/docs/getting-started/quickstart)
+
+- ah.. there is a missing `prisma init` step in the vercel docs that creates the schema.prisma file
+- but before that, this `public-hoist-pattern[]=*prisma*` should be added to the root .npmrc file (I'm assuming it is the monorepo root, since this is the turborepo docs...)
+- "Run your package manager's install step to install the new dependencies."
+
+
+```bash
+vercel-mono-prisma❱ pnpm i
+Scope: all 3 workspace projects
+? The modules directory at "C:\srv\work\vercel-mono-prisma\node_modules" will be removed and reinstalled from scratch. Proceed? (Y/n) » true
+```
+
+(sigh, this takes a good 30 minutes on my quite fast machine...)
+
+There seems to be multiple issues with running prisma in a monorepo, most of which have been open for a very long time... (I'm getting bad vibes here...):
+- https://github.com/prisma/docs/issues/1288
+- https://github.com/prisma/prisma/issues/12535
+- https://github.com/prisma/prisma/issues/9726
+
+```bash
+> cd packages/db
+packages/db> npx prisma init
+```
