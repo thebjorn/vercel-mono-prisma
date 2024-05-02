@@ -21,6 +21,8 @@
                 "src/**/*.svelte"
             ]
         },
+        "db:generate": {"cache": false},
+        "db:push": {"cache": false},
         "lint": {},
         "dev": {
             "cache": false,
