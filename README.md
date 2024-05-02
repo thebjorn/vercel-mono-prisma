@@ -370,3 +370,13 @@ web:build: Error: Unsupported Node.js version: v21.5.0. Please use Node 18 or No
 ```
 
 **Hmm..** The reason for choosing prisma was because development was easier. After spending several days on this, I'm starting to realize that this might have been a mistake.  Maybe drizzle will be functional in a monorepo...?
+
+Yay! working :-)
+
+The real repo still errors with
+
+```bash
+db:build:  ERR_PNPM_PUBLIC_HOIST_PATTERN_DIFF  This modules directory was created using a different public-hoist-pattern value. Run "pnpm install" to recreate the modules directory.
+```
+
+but at least that is a new error :-)
